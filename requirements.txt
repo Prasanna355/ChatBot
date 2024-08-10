@@ -1,0 +1,12 @@
+requests
+beautifulsoup4
+langchain
+langchain_community
+langchain_groq
+langchain-text-splitters
+langchain-huggingface
+faiss-cpu
+wikipedia
+streamlit
+fastapi
+uvicorn
