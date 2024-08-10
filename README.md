@@ -21,7 +21,7 @@ This repository contains a FastAPI backend and a Streamlit frontend that togethe
 - Python 3.8+
 - Install required packages:
   ```bash
-  pip install fastapi uvicorn streamlit langchain langchain-community huggingface-hub faiss-cpu requests 
+  pip install requests beautifulsoup4 langchain langchain_community langchain_groq langchain-text-splitters langchain-huggingface faiss-cpu wikipedia streamlit fastapi uvicorn 
 
 Certainly! Here's the README file with the instructions formatted in code blocks:
 
