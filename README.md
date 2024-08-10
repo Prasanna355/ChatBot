@@ -22,3 +22,23 @@ This repository contains a FastAPI backend and a Streamlit frontend that togethe
 - Install required packages:
   ```bash
   pip install fastapi uvicorn streamlit langchain langchain-community huggingface-hub faiss-cpu requests 
+
+### Running the Backend
+
+1. **Start the FastAPI server**:
+
+    ```bash
+    uvicorn api:app --reload
+    ```
+
+2. The backend will be available at `http://localhost:8000`.
+
+### Running the Frontend
+
+1. **Start the Streamlit app**:
+
+    ```bash
+    streamlit run app.py
+    ```
+
+2. The frontend will be available at `http://localhost:8501`.
