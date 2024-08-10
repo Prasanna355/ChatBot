@@ -49,7 +49,7 @@ This repository contains a FastAPI backend and a Streamlit frontend that togethe
 Ensure you have Python 3.7+ installed and then install the required packages using:
 
 ```bash
-pip install fastapi uvicorn streamlit langchain langchain-community huggingface-hub faiss-cpu requests
+pip install requests beautifulsoup4 langchain langchain_community langchain_groq langchain-text-splitters langchain-huggingface faiss-cpu wikipedia streamlit fastapi uvicorn
 ```
 
 ### Running the Backend
@@ -127,18 +127,3 @@ pip install fastapi uvicorn streamlit langchain langchain-community huggingface-
 
 - **FastAPI Backend**: Handles scraping, data processing, and querying. Ensure that all functions are correctly defined and that the FastAPI server is running before interacting with the frontend.
 - **Streamlit Frontend**: Provides an interactive interface for users. Ensure that the Streamlit app is running to allow users to load data and query the AI model.
-
-## Contributing
-
-Feel free to submit issues, fork the repository, and send pull requests. All contributions are welcome!
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For any questions or feedback, please reach out to [pkprasanna0501@gmail.com](mailto:pkprasanna0501@gmail.com).
-```
-
-This README is formatted with code blocks for commands and JSON, making it easy to copy and paste for setup and use.
