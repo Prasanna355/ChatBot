@@ -34,7 +34,7 @@ pip install requests beautifulsoup4 langchain langchain_community langchain_groq
 2. **Download and start Milvus**:
 
     ```bash
-    # Download the Milvus configuration file
+    # Download the Milvus configuration file (For reference - https://milvus.io/docs/install_standalone-docker-compose.md)
     wget https://github.com/milvus-io/milvus/releases/download/v2.4.6/milvus-standalone-docker-compose.yml -O docker-compose.yml
 
     # Start Milvus
