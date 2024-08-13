@@ -21,8 +21,8 @@ This repository contains a FastAPI backend and a Streamlit frontend that togethe
 Ensure you have Python 3.7+ installed and then install the required packages using:
 
 ```bash
-pip install requests beautifulsoup4 langchain langchain_community langchain_groq langchain-text-splitters langchain-huggingface pymilvus wikipedia streamlit fastapi uvicorn
-
+pip install requests beautifulsoup4 langchain langchain_community langchain_groq langchain-text-splitters langchain-huggingface pymilvus wikipedia streamlit fastapi uvicorn pymilvus langchain_milvus
+```
 
 ### Milvus Setup
 
@@ -31,7 +31,7 @@ pip install requests beautifulsoup4 langchain langchain_community langchain_groq
 2. **Download and start Milvus**:
 
     ```bash
-    # Download the Milvus configuration file (For reference - https://milvus.io/docs/install_standalone-docker-compose.md)
+    # Download the Milvus configuration file
     wget https://github.com/milvus-io/milvus/releases/download/v2.4.6/milvus-standalone-docker-compose.yml -O docker-compose.yml
 
     # Start Milvus
