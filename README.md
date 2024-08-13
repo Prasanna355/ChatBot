@@ -1,6 +1,3 @@
-Here's the updated README with the additional information about Milvus storage:
-
-```markdown
 # AI Chatbot with Wikipedia Integration
 
 This repository contains a FastAPI backend and a Streamlit frontend that together form an AI chatbot capable of scraping Wikipedia data, processing it using vector embeddings, and answering user queries based on the retrieved information.
@@ -21,11 +18,11 @@ This repository contains a FastAPI backend and a Streamlit frontend that togethe
 
 ### Prerequisites
 
-Ensure you have Python 3.8+ installed and then install the required packages using:
+Ensure you have Python 3.7+ installed and then install the required packages using:
 
 ```bash
-pip install requests beautifulsoup4 langchain langchain_community langchain_groq langchain-text-splitters langchain-huggingface pymilvus wikipedia streamlit fastapi uvicorn pymilvus langchain_milvus
-```
+pip install requests beautifulsoup4 langchain langchain_community langchain_groq langchain-text-splitters langchain-huggingface pymilvus wikipedia streamlit fastapi uvicorn
+
 
 ### Milvus Setup
 
