@@ -1,11 +1,12 @@
-from fastapi import FastAPI, HTTPException, Request
+
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, validator
 import os
 from langchain.document_loaders import WikipediaLoader
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_milvus import Milvus
 from langchain_core.vectorstores import VectorStoreRetriever
 from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
@@ -32,8 +33,12 @@ llm = ChatGroq(
     groq_api_key=API_KEY
 )
 
-# Global FAISS index
-f_db = None
+# Global Milvus instance
+milvus_db = None
+
+# Milvus connection settings
+MILVUS_URI = "http://localhost:19530"  # Update this if your Milvus server is on a different address
+COLLECTION_NAME = "wikipedia_qa"
 
 
 # Pydantic models for request bodies with input validation
@@ -110,10 +115,10 @@ def save_to_file(title: str, content: str) -> str:
     return filepath
 
 
-@app.post("/load", summary="Load Wikipedia content into FAISS index")
+@app.post("/load", summary="Load Wikipedia content into Milvus")
 async def load_data(load_model: LoadModel):
     """
-    Endpoint to scrape Wikipedia, save content, and load data into FAISS index.
+    Endpoint to scrape Wikipedia, save content, and load data into Milvus.
 
     Args:
         load_model (LoadModel): The input model containing the Wikipedia page title or URL.
@@ -124,7 +129,7 @@ async def load_data(load_model: LoadModel):
     Raises:
         HTTPException: If an error occurs during the process.
     """
-    global f_db
+    global milvus_db
     try:
         # Scrape Wikipedia content
         title, scraped_text = scrape_wikipedia(load_model.input_text)
@@ -132,7 +137,7 @@ async def load_data(load_model: LoadModel):
         # Save scraped content to a file
         saved_file = save_to_file(title, scraped_text)
 
-        # Load data into FAISS index
+        # Load data into Milvus
         loader = TextLoader(saved_file)
         documents = loader.load()
 
@@ -144,10 +149,15 @@ async def load_data(load_model: LoadModel):
         docs = text_splitter.split_documents(documents)
 
         embeddings = HuggingFaceEmbeddings(model_name='paraphrase-MiniLM-L6-v2')
-        f_db = FAISS.from_documents(docs, embeddings)
-        f_db.save_local("faiss_index")
 
-        return {"status": "Data scraped, saved, and loaded into FAISS index successfully"}
+        milvus_db = Milvus.from_documents(
+            docs,
+            embeddings,
+            connection_args={"uri": MILVUS_URI},
+            collection_name=COLLECTION_NAME
+        )
+
+        return {"status": "Data scraped, saved, and loaded into Milvus successfully"}
 
     except Exception as e:
         error_message = traceback.format_exc()
@@ -170,10 +180,10 @@ async def query_model(query: QueryModel):
         HTTPException: If data is not loaded or an error occurs during the process.
     """
     try:
-        if f_db is None:
+        if milvus_db is None:
             raise HTTPException(status_code=400, detail="Data not loaded. Please load the data first.")
 
-        retriever = f_db.as_retriever(search_type="similarity", search_kwargs={"k": 1})
+        retriever = milvus_db.as_retriever(search_kwargs={"k": 1})
         chatbot = RetrievalQA.from_chain_type(
             llm=llm,
             chain_type="stuff",
