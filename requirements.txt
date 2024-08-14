@@ -10,3 +10,5 @@ wikipedia
 streamlit
 fastapi
 uvicorn
+pymilvus
+langchain_milvus
