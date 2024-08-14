@@ -95,7 +95,7 @@ with tab1:
                     st_lottie(lottie_loading, height=200, key="loading_animation")
                 load_response = make_api_request("load", {"input_text": wiki_input})
                 if load_response and load_response.status_code == 200:
-                    st.success("Data scraped, saved, and loaded into FAISS index successfully!")
+                    st.success("Data scraped, saved, and loaded into Milvus DB successfully!")
                 elif load_response:
                     st.error(f"Error loading data: {load_response.text}")
 
